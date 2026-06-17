@@ -1,7 +1,9 @@
 import pandas as pd 
 
 df = pd.read_csv('./spotify_dataset.csv')
-
+def main():
+    display_analyzer()
+    analyzer.display_top_users()
 class SpotifyUser:
     def __init__(self, user_id, gender, age, country, subscription_type, listening_time, songs_played_per_day, skip_rate, device_type, ads_listened_per_week, offline_listening, is_churned):
         self.user_id = user_id
@@ -104,16 +106,16 @@ class SpotifyAnalyzer:
         for user in top5:
             print(f"{user.user_id} - {user.age} ans - {user.country}")
             print(f'{user.subscription_type} || {user.songs_played_per_day} songs per day || {user.get_profile_label()}')
-
         print("=== Top 5 des utilisateurs à risque ===")
         at_risk = [user for user in self.users if user.is_at_risk()]
         for user in at_risk[:5]:
             print(f"{user.user_id} - {user.age} ans - {user.country}")
             print(f'{user.ads_listened_per_week} || {user.skip_rate} || {user.songs_played_per_day} songs per day || {user.get_profile_label()}')
+
 analyzer = SpotifyAnalyzer('./spotify_dataset.csv')
-def main():
-    display_analyzer()
-    analyzer.display_top_users()
+
+
+
 def display_analyzer():
     print('=== Spotify Talent Scout ===')
     print(f'Nombre total d\'utilisateurs : {analyzer.count_users()}')
@@ -130,5 +132,6 @@ def display_analyzer():
     print(f'Candidats Premium : {analyzer.count_premium_user()}')
     print('=== Spotify Talent Scout ===')
     
-main()
+if __name__ == "__main__":
+    main()
 
